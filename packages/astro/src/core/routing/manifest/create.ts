@@ -167,6 +167,10 @@ function createFileBasedRoutes(
 			if (basename[0] === '.' && basename !== '.well-known') {
 				continue;
 			}
+			if (name[0] === '(' && name[name.length - 1] === ')') {
+				walk(fs, path.join(dir, name), parentSegments, parentParams);
+				continue;
+			}
 			// filter out "foo.astro_tmp" files, etc
 			if (!isDir && !validPageExtensions.has(ext) && !validEndpointExtensions.has(ext)) {
 				logger.warn(
