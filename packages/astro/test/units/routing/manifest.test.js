@@ -207,6 +207,8 @@ describe('routing - createRouteManifest', () => {
 				'/src/pages/[dynamic_folder]/[...rest].astro': `<h1>test</h1>`,
 				'/src/pages/[...rest]/static.astro': `<h1>test</h1>`,
 				'/src/pages/[...rest]/index.astro': `<h1>test</h1>`,
+				'/src/pages/(account)/addresses/index.astro': `<h1>test</h1>`,
+				'/src/pages/(account)/addresses/[...slug].astro': `<h1>test</h1>`,
 				'/src/pages/blog/index.astro': `<h1>test</h1>`,
 				'/src/pages/blog/[...slug].astro': `<h1>test</h1>`,
 				'/src/pages/[dynamic_file].astro': `<h1>test</h1>`,
@@ -236,6 +238,7 @@ describe('routing - createRouteManifest', () => {
 			['/', '/[...rest]'],
 			['/', '/[...other]'],
 			['/blog', '/blog/[...slug]'],
+			['/addresses', '/addresses/[...slug]'],
 			['/[dynamic_file]', '/[dynamic_folder]/[...rest]'],
 			['/[dynamic_folder]', '/[dynamic_folder]/[...rest]'],
 
@@ -246,6 +249,8 @@ describe('routing - createRouteManifest', () => {
 			// Static should come before rest parameters
 			['/blog', '/[...rest]'],
 			['/blog', '/[...other]'],
+			['/addresses', '/[...rest]'],
+			['/addresses', '/[...other]'],
 			['/static', '/[...rest]'],
 			['/static', '/[...other]'],
 			['/static', '/[...rest]/static'],
@@ -259,6 +264,8 @@ describe('routing - createRouteManifest', () => {
 			['/[dynamic_folder]/[...rest]', '/[...other]'],
 			['/blog/[...slug]', '/[...rest]'],
 			['/blog/[...slug]', '/[...other]'],
+			['/addresses/[...slug]', '/[...rest]'],
+			['/addresses/[...slug]', '/[...other]'],
 		]);
 	});
 

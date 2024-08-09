@@ -1,0 +1,16 @@
+---
+import Layout from "../../../../components/Layout.astro";
+
+export async function getStaticPaths() {
+	return [
+		{ params: { hash: 12345 } },
+	];
+}
+
+const {hash} = Astro.params;
+---
+
+<Layout>
+	<h1>Profile Page</h1>
+	<p>This is the profile page for the hash: {hash}</p>
+</Layout>
