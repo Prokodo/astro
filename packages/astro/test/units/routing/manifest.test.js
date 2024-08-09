@@ -575,6 +575,52 @@ describe('routing - createRouteManifest', () => {
 		]);
 	});
 
+	it('report colliding grouped routes', async () => {
+		const fs = createFs(
+			{
+				'/src/pages/[foo].astro': `<h1>test</h1>`,
+				'/src/pages/(test)/[bar].astro': `<h1>test</h1>`,
+			},
+			root,
+		);
+		const settings = await createBasicSettings({
+			root: fileURLToPath(root),
+			output: 'server',
+			base: '/search',
+			trailingSlash: 'never',
+			integrations: [],
+			experimental: {
+				globalRoutePriority: true,
+			},
+		});
+
+		const manifestOptions = {
+			cwd: fileURLToPath(root),
+			settings,
+			fsMod: fs,
+		};
+
+		const { logger, logs } = getLogger();
+
+		createRouteManifest(manifestOptions, logger);
+
+		assert.deepEqual(logs, [
+			{
+				label: 'router',
+				level: 'warn',
+				message: 
+					'The route "/[bar]" is defined in both "src/pages/(test)/[bar].astro" and "src/pages/[foo].astro" using SSR mode. A dynamic SSR route cannot be defined more than once.',
+				newLine: true
+			},
+			{
+				label: 'router',
+				level: 'warn',
+				message: 'A collision will result in an hard error in following versions of Astro.',
+				newLine: true
+			}
+		]);
+	});
+
 	it('should concatenate each part of the segment. issues#10122', async () => {
 		const fs = createFs(
 			{
