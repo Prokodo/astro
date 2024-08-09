@@ -17,5 +17,4 @@ Route groups can be created by wrapping a folder's name in parentheses, e.g. `(a
 - `/src/pages/(shop)/cart.astro` ➜ `/cart`
 - `/src/pages/(user)/profile.astro` ➜ `/profile`
 - `/src/pages/(user)/orders/[orderId].astro` ➜ `/orders/:orderId`
-- `/src/pages/(user)/settings.astro` ➜ `/settings`
-- 
+- `/src/pages/(user)/settings.astro` ➜ `/settings` 
